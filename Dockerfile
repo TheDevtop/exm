@@ -11,7 +11,7 @@ RUN go build
 
 EXPOSE 1800
 
-ENV S3HOST s3.my.domain
+ENV S3HOST my.domain
 ENV S3USER username
 ENV S3SECRET secret
 ENV S3BUCKET mybucket

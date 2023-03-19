@@ -10,4 +10,4 @@ build:
 	@go build
 
 docker:clean
-	@docker build -t exm .
+	@docker build -t thedevtop/exm:build .
