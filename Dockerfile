@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
  
 RUN go mod download
-RUN go build
+RUN go build -ldflags "-s -w"
 
 EXPOSE 1800
 

@@ -7,7 +7,7 @@ clean:
 
 build:
 	@go fmt
-	@go build
+	@go build -ldflags "-s -w"
 
 docker:clean
 	@docker build -t thedevtop/exm:build .
