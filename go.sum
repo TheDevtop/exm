@@ -1,3 +1,5 @@
+github.com/TheDevtop/go-probes v1.0.0 h1:2EQTi1xBCNBSsUDiKaA95IiRSh5+qPZtqHYtmTIzS5M=
+github.com/TheDevtop/go-probes v1.0.0/go.mod h1:i8g4DoaroCwGk0t2RZwBn/xR61jWlbJQ/WZaph/GwEU=
 github.com/TheDevtop/tpjson v1.0.0 h1:fcnpfg4QWwlgqPbgwGS6n6Oy6cJxQnXbe5vlAkScNbo=
 github.com/TheDevtop/tpjson v1.0.0/go.mod h1:5fdGVTXscbsOEBp3Pw4bcw37BMxYFJ2ibbPLiiUK77w=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

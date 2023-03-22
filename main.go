@@ -1,30 +1,45 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"net/http"
 	"os"
 
 	"github.com/TheDevtop/exm/api"
-	"github.com/TheDevtop/exm/conio"
+	"github.com/TheDevtop/exm/rec"
+	"github.com/TheDevtop/exm/sti"
+	drvminio "github.com/TheDevtop/exm/sti/drv-minio"
+	"github.com/TheDevtop/go-probes"
 )
 
 func main() {
-	const (
-		fprobe = "main.main"
-		port   = ":1800"
+	var (
+		pb  = probes.NewLogProbe("main.main", os.Stderr)
+		err error
 	)
 
-	if err := conio.Setup(
-		os.Getenv("S3HOST"),
-		os.Getenv("S3USER"),
-		os.Getenv("S3SECRET"),
-		os.Getenv("S3BUCKET")); err != nil {
-		conio.Probeln(fprobe, err.Error())
+	// Declare and parse flags
+	flagDriver := flag.String("driver", drvminio.DriverName, "Specify storage driver")
+	flag.Usage = func() {
+		println("EXM Search Engine")
+		flag.PrintDefaults()
+	}
+	flag.Parse()
+
+	// Initialize the storage interface
+	if err = sti.Setup(*flagDriver); err != nil {
+		pb.Probe(err.Error())
 		os.Exit(1)
 	}
 
+	// Initialize cache and API
+	rec.Setup()
 	api.Setup()
-	conio.Probeln(fprobe, ("Listening on " + port))
-	http.ListenAndServe(port, nil)
-	os.Exit(0)
+
+	// Get ready to service
+	pb.Probe(fmt.Sprintf("Servicing on (%s)", api.ListenAddr))
+	if err = http.ListenAndServe(api.ListenAddr, nil); err != nil {
+		pb.Probe(err.Error())
+	}
 }
