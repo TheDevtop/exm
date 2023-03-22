@@ -11,6 +11,7 @@ import (
 	"github.com/TheDevtop/go-probes"
 )
 
+// Return a new data streamer
 var Stream func(string) (*bufio.Scanner, error)
 
 func Setup(driver string) error {

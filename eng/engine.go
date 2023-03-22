@@ -15,3 +15,23 @@ func Search(rex *regexp.Regexp, streamer *bufio.Scanner) []string {
 	}
 	return result
 }
+
+// Search for pattern in object and replace with mapping
+func Replace(rex *regexp.Regexp, streamer *bufio.Scanner, mapping string) []string {
+	var result = make([]string, 0, 32)
+	for streamer.Scan() {
+		result = append(result, rex.ReplaceAllString(streamer.Text(), mapping))
+	}
+	return result
+}
+
+// Search for pattern in object and map the matches exclusively
+func MapReduce(rex *regexp.Regexp, streamer *bufio.Scanner, mapping string) []string {
+	var result = make([]string, 0, 32)
+	for streamer.Scan() {
+		if ln := streamer.Text(); rex.MatchString(ln) {
+			result = append(result, rex.ReplaceAllString(ln, mapping))
+		}
+	}
+	return result
+}

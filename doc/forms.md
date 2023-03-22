@@ -9,6 +9,16 @@
 }
 ```
 
+### ReplaceForm
+
+```json
+{
+  "Object": "",
+  "Regex": "",
+  "Mapping" : ""
+}
+```
+
 ### ResultForm
 
 ```json

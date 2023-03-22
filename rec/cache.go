@@ -8,6 +8,7 @@ func Setup() {
 	reCache = make(map[string]*regexp.Regexp, 16)
 }
 
+// Get regex from cache or compile on the spot
 func Generate(restr string) (*regexp.Regexp, error) {
 	if re, ok := reCache[restr]; ok {
 		return re, nil
