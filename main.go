@@ -9,7 +9,6 @@ import (
 	"github.com/TheDevtop/exm/api"
 	"github.com/TheDevtop/exm/rec"
 	"github.com/TheDevtop/exm/sti"
-	drvminio "github.com/TheDevtop/exm/sti/drv-minio"
 	"github.com/TheDevtop/go-probes"
 )
 
@@ -20,11 +19,7 @@ func main() {
 	)
 
 	// Declare and parse flags
-	flagDriver := flag.String("driver", drvminio.DriverName, "Specify storage driver")
-	flag.Usage = func() {
-		println("EXM Search Engine")
-		flag.PrintDefaults()
-	}
+	flagDriver := flag.String("driver", "none", "Specify storage driver")
 	flag.Parse()
 
 	// Initialize the storage interface

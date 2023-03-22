@@ -10,6 +10,8 @@ EXM listens to every address on port 1800.
 - S3SECRET  (Password/Secret)
 - S3BUCKET  (Default target bucket)
 
+- VFSDIR    (Default directory)
+
 ### Exit codes
 
 0. Exit without errors.

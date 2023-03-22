@@ -16,4 +16,4 @@ ENV S3USER username
 ENV S3SECRET secret
 ENV S3BUCKET mybucket
 
-CMD [ "/app/exm" ]
+CMD [ "/app/exm", "-driver", "minio" ]
