@@ -35,3 +35,18 @@ func MapReduce(rex *regexp.Regexp, streamer *bufio.Scanner, mapping string) []st
 	}
 	return result
 }
+
+// Reduce object to its dictionary
+func Reduce(streamer *bufio.Scanner) []string {
+	var dict = make(map[string]bool, 32)
+	var result = make([]string, 32)
+
+	streamer.Split(bufio.ScanWords)
+	for streamer.Scan() {
+		dict[streamer.Text()] = true
+	}
+	for key := range dict {
+		result = append(result, key)
+	}
+	return result
+}

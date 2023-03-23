@@ -1,5 +1,9 @@
 package forms
 
+type ObjectForm struct {
+	Object string
+}
+
 type SearchForm struct {
 	Object string
 	Regex  string

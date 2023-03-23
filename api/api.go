@@ -31,12 +31,8 @@ func apiSearch(w http.ResponseWriter, r *http.Request) {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
-	} else if results := eng.Search(re, streamer); err != nil {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
-		pb.Probe(err.Error())
-		return
 	} else {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: results})
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: eng.Search(re, streamer)})
 		return
 	}
 }
@@ -57,12 +53,8 @@ func apiReplace(w http.ResponseWriter, r *http.Request) {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
-	} else if results := eng.Replace(re, streamer, reqForm.Mapping); err != nil {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
-		pb.Probe(err.Error())
-		return
 	} else {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: results})
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: eng.Replace(re, streamer, reqForm.Mapping)})
 		return
 	}
 }
@@ -83,12 +75,27 @@ func apiMapReduce(w http.ResponseWriter, r *http.Request) {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
-	} else if results := eng.MapReduce(re, streamer, reqForm.Mapping); err != nil {
+	} else {
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: eng.MapReduce(re, streamer, reqForm.Mapping)})
+		pb.Probe(err.Error())
+		return
+	}
+}
+
+func apiReduce(w http.ResponseWriter, r *http.Request) {
+	pb := probes.NewLogProbe("api.apiReduce", os.Stderr)
+	reqForm := new(forms.ObjectForm)
+
+	if err := tpjson.ReceiveJSON(r, reqForm); err != nil {
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
+		pb.Probe(err.Error())
+		return
+	} else if streamer, err := sti.Stream(reqForm.Object); err != nil {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
 	} else {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: results})
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: eng.Reduce(streamer)})
 		return
 	}
 }
