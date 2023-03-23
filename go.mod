@@ -4,11 +4,11 @@ go 1.19
 
 require (
 	github.com/TheDevtop/go-probes v1.0.0
+	github.com/TheDevtop/tpjson v1.0.0
 	github.com/minio/minio-go/v7 v7.0.49
 )
 
 require (
-	github.com/TheDevtop/tpjson v1.0.0
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect

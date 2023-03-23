@@ -3,5 +3,4 @@
 deploy
 testenv
 Makefile
-doc
 *.md

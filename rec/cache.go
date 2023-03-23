@@ -15,6 +15,7 @@ const (
 
 var reCache map[string]*regexp.Regexp
 
+// Reallocates cache
 func clean() {
 	pb := probes.NewLogProbe("rec.clean", os.Stderr)
 	for {
@@ -26,6 +27,7 @@ func clean() {
 	}
 }
 
+// Allocates cache, starts cleanup function
 func Setup() {
 	reCache = make(map[string]*regexp.Regexp, cacheMaxSize)
 	go clean()
