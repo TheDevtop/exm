@@ -1,15 +1,38 @@
 package rec
 
-import "regexp"
+import (
+	"os"
+	"regexp"
+	"time"
+
+	"github.com/TheDevtop/go-probes"
+)
+
+const (
+	cacheMaxSize = 2  // Maximum size of cache
+	cacheTimeout = 10 // Minutes to wait for timeout
+)
 
 var reCache map[string]*regexp.Regexp
 
+func clean() {
+	pb := probes.NewLogProbe("rec.clean", os.Stderr)
+	for {
+		time.Sleep(cacheTimeout * time.Minute)
+		if len(reCache) > cacheMaxSize {
+			reCache = make(map[string]*regexp.Regexp, cacheMaxSize)
+			pb.Probe("Cleaned the regex cache!")
+		}
+	}
+}
+
 func Setup() {
-	reCache = make(map[string]*regexp.Regexp, 16)
+	reCache = make(map[string]*regexp.Regexp, cacheMaxSize)
+	go clean()
 }
 
 // Get regex from cache or compile on the spot
-func Generate(restr string) (*regexp.Regexp, error) {
+func Receive(restr string) (*regexp.Regexp, error) {
 	if re, ok := reCache[restr]; ok {
 		return re, nil
 	}

@@ -27,7 +27,7 @@ func apiSearch(w http.ResponseWriter, r *http.Request) {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
-	} else if re, err := rec.Generate(reqForm.Regex); err != nil {
+	} else if re, err := rec.Receive(reqForm.Regex); err != nil {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
@@ -53,7 +53,7 @@ func apiReplace(w http.ResponseWriter, r *http.Request) {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
-	} else if re, err := rec.Generate(reqForm.Regex); err != nil {
+	} else if re, err := rec.Receive(reqForm.Regex); err != nil {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
@@ -79,7 +79,7 @@ func apiMapReduce(w http.ResponseWriter, r *http.Request) {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
-	} else if re, err := rec.Generate(reqForm.Regex); err != nil {
+	} else if re, err := rec.Receive(reqForm.Regex); err != nil {
 		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
 		pb.Probe(err.Error())
 		return
