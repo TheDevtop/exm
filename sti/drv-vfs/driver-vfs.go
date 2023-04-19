@@ -26,6 +26,26 @@ func Stream(path string) (*bufio.Scanner, error) {
 	return bufio.NewScanner(fd), nil
 }
 
+func List() ([]string, error) {
+	var (
+		pb      = probes.NewLogProbe("drvvfs.List", os.Stderr)
+		list    = make([]string, 2)
+		entries []os.DirEntry
+		err     error
+	)
+
+	if entries, err = os.ReadDir(vfsDir); err != nil {
+		pb.Probe(err.Error())
+		return nil, err
+	}
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			list = append(list, entry.Name())
+		}
+	}
+	return list, nil
+}
+
 func Setup() error {
 	pb := probes.NewLogProbe("drvvfs.Setup", os.Stderr)
 	if err := os.Chdir(vfsDir); err != nil {

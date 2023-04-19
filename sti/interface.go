@@ -11,8 +11,9 @@ import (
 	"github.com/TheDevtop/go-probes"
 )
 
-// Return a new data streamer
+// Functions that provide the storage interface
 var Stream func(string) (*bufio.Scanner, error)
+var List func() ([]string, error)
 
 func Setup(driver string) error {
 	var (
@@ -24,10 +25,12 @@ func Setup(driver string) error {
 	case drvminio.DriverName:
 		err = drvminio.Setup()
 		Stream = drvminio.Stream
+		List = drvminio.List
 		pb.Probe(fmt.Sprintf("Storage driver (%s)", drvminio.DriverName))
 	case drvvfs.DriverName:
 		err = drvvfs.Setup()
 		Stream = drvvfs.Stream
+		List = drvvfs.List
 		pb.Probe(fmt.Sprintf("Storage driver (%s)", drvvfs.DriverName))
 	default:
 		err = errors.New("driver not found error")

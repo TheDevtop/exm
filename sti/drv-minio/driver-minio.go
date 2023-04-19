@@ -47,6 +47,35 @@ func Stream(path string) (*bufio.Scanner, error) {
 	return bufio.NewScanner(object), nil
 }
 
+func List() ([]string, error) {
+	var (
+		pb     = probes.NewLogProbe("drvminio.List", os.Stderr)
+		list   = make([]string, 2)
+		client *minio.Client
+		err    error
+	)
+
+	if client, err = minio.New(minioHost, &minio.Options{
+		Creds:  credentials.NewStaticV4(minioUser, minioSecret, ""),
+		Secure: false,
+	}); err != nil {
+		pb.Probe(err.Error())
+		return nil, err
+	}
+	objectCh := client.ListObjects(context.Background(), minioBucket, minio.ListObjectsOptions{
+		Recursive: true,
+	})
+	for object := range objectCh {
+		if object.Err != nil {
+			pb.Probe(object.Err.Error())
+			continue
+		}
+		list = append(list, object.Key)
+	}
+
+	return list, nil
+}
+
 func Setup() error {
 	pb := probes.NewLogProbe("drvminio.Setup", os.Stderr)
 
