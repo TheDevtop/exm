@@ -20,3 +20,9 @@ type ResultForm struct {
 	Error   string
 	Results []string
 }
+
+type MultiResultForm struct {
+	Route   string
+	Error   error
+	Results map[string][]string
+}

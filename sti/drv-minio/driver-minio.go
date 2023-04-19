@@ -50,7 +50,7 @@ func Stream(path string) (*bufio.Scanner, error) {
 func List() ([]string, error) {
 	var (
 		pb     = probes.NewLogProbe("drvminio.List", os.Stderr)
-		list   = make([]string, 2)
+		list   []string
 		client *minio.Client
 		err    error
 	)

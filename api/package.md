@@ -54,3 +54,16 @@ Used by everyone
   ]
 }
 ```
+
+**MultiResultForm**
+
+Used by: /search/all, /replace/all
+```json
+{
+  "Route": "",
+  "Error": null,
+  "Results": {
+    "": [""]
+  }
+}
+```

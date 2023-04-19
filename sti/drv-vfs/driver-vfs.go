@@ -29,7 +29,7 @@ func Stream(path string) (*bufio.Scanner, error) {
 func List() ([]string, error) {
 	var (
 		pb      = probes.NewLogProbe("drvvfs.List", os.Stderr)
-		list    = make([]string, 2)
+		list    []string
 		entries []os.DirEntry
 		err     error
 	)
