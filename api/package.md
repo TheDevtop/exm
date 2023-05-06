@@ -4,11 +4,15 @@ The API server listens on port 1800.
 
 ### Routes:
 
-- /ping         (Check if EXM is online)
-- /search       (Search for patterns in objects)
-- /replace      (Replace pattern with mapping, return entire object)
-- /reduce       (Reduce the object to its dictionary)
-- /map/reduce   (Replace pattern with mapping, return mapped only)
+- /ping           (Check if EXM is online)
+- /search         (Search for patterns in objects)
+- /search/all     (Search for patterns for all objects)
+- /replace        (Replace pattern with mapping, return entire object)
+- /replace/all    (Replace for all objects)
+- /reduce         (Reduce the object to its dictionary)
+- /reduce/all     (Reduce for all objects)
+- /map/reduce     (Replace pattern with mapping, return mapped only)
+- /map/reduce/all (MapReduce for all objects)
 
 ### JSON Forms:
 
@@ -23,7 +27,7 @@ Used by: /reduce
 
 **SearchForm**
 
-Used by: /search
+Used by: /search, /search/all
 ```json
 {
   "Object": "",
@@ -33,7 +37,7 @@ Used by: /search
 
 **ReplaceForm**
 
-Used by: /replace, /map/reduce
+Used by: /replace, /replace/all, /map/reduce, /map/reduce/all
 ```json
 {
   "Object": "",
@@ -57,7 +61,7 @@ Used by everyone
 
 **MultiResultForm**
 
-Used by: /search/all, /replace/all
+Used by: /*/all
 ```json
 {
   "Route": "",

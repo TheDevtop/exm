@@ -11,6 +11,11 @@ func Setup() {
 	http.HandleFunc("/search/all", apiSearchAll)
 
 	http.HandleFunc("/replace", apiReplace)
+	http.HandleFunc("/replace/all", apiReplaceAll)
+
 	http.HandleFunc("/reduce", apiReduce)
+	http.HandleFunc("/reduce/all", apiReduceAll)
+
 	http.HandleFunc("/map/reduce", apiMapReduce)
+	http.HandleFunc("/map/reduce/all", apiMapReduceAll)
 }
