@@ -10,4 +10,4 @@ build:
 	@go build -ldflags "-s -w"
 
 docker:clean
-	@docker build -t thedevtop/exm:build .
+	@docker build -t ghcr.io/thedevtop/exm:v0.2.0 .

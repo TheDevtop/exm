@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	cacheMaxSize = 2  // Maximum size of cache
+	cacheMaxSize = 4  // Maximum size of cache
 	cacheTimeout = 10 // Minutes to wait for timeout
 )
 
