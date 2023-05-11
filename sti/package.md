@@ -4,6 +4,7 @@ Currently, the storage interface supports the following drivers:
 
 - Minio     (S3 object storage)
 - VFS       (Virtual Filesystem)
+- Mockup    (Internal testing store)
 
 ### Driver: minio
 
@@ -21,3 +22,7 @@ Toggle: `-driver vfs`
 
 Environment:
 - VFSDIR    (Default directory)
+
+### Driver: mockup
+
+Toggle: `-driver mockup`

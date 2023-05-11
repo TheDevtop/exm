@@ -7,6 +7,7 @@ import (
 	"os"
 
 	drvminio "github.com/TheDevtop/exm/sti/drv-minio"
+	drvmockup "github.com/TheDevtop/exm/sti/drv-mockup"
 	drvvfs "github.com/TheDevtop/exm/sti/drv-vfs"
 	"github.com/TheDevtop/go-probes"
 )
@@ -32,6 +33,11 @@ func Setup(driver string) error {
 		Stream = drvvfs.Stream
 		List = drvvfs.List
 		pb.Probe(fmt.Sprintf("Storage driver (%s)", drvvfs.DriverName))
+	case drvmockup.DriverName:
+		err = drvmockup.Setup()
+		Stream = drvmockup.Stream
+		List = drvmockup.List
+		pb.Probe(fmt.Sprintf("Storage driver (%s)", drvmockup.DriverName))
 	default:
 		err = errors.New("driver not found error")
 		pb.Probe(err.Error())
