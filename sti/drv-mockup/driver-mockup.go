@@ -35,7 +35,7 @@ func Stream(id string) (*bufio.Scanner, error) {
 
 func List() ([]string, error) {
 	var list []string
-	for k, _ := range mockStore {
+	for k := range mockStore {
 		list = append(list, k)
 	}
 	return list, nil

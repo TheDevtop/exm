@@ -29,7 +29,7 @@ func main() {
 	}
 
 	// Initialize cache and API
-	rec.Setup()
+	rec.Setup(true)
 	api.Setup()
 
 	// Get ready to service

@@ -27,10 +27,17 @@ func clean() {
 	}
 }
 
-// Allocates cache, starts cleanup function
-func Setup() {
+// Allocates cache, starts cleanup function if selected
+func Setup(autoclean bool) {
+	pb := probes.NewLogProbe("rec.Setup", os.Stderr)
 	reCache = make(map[string]*regexp.Regexp, cacheMaxSize)
-	go clean()
+
+	// Is autoclean enabled
+	if autoclean {
+		go clean()
+		return
+	}
+	pb.Probe("Warning, running without autoclean")
 }
 
 // Get regex from cache or compile on the spot
