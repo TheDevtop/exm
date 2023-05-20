@@ -99,3 +99,34 @@ func TestReduce(t *testing.T) {
 		t.Fatal("Test result and correct answer mismatch!")
 	}
 }
+
+func TestMatch(t *testing.T) {
+	// Setup mock driver
+	var (
+		scanPtr *bufio.Scanner
+		err     error
+	)
+	if scanPtr, err = drvmockup.Stream("foobar"); err != nil {
+		t.Fatal(err)
+	}
+	// Setup cache
+	var rePtr *regexp.Regexp
+	rec.Setup(false)
+	if rePtr, err = rec.Receive("foo*"); err != nil {
+		t.Fatal(err)
+	}
+
+	// Test should work
+	if !Match(rePtr, scanPtr) {
+		t.Fatal("Test should match")
+	}
+
+	if rePtr, err = rec.Receive("NoMatch"); err != nil {
+		t.Fatal(err)
+	}
+
+	// Test should not work
+	if Match(rePtr, scanPtr) {
+		t.Fatal("Test should not match")
+	}
+}

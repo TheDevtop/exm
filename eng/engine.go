@@ -50,3 +50,13 @@ func Reduce(streamer *bufio.Scanner) []string {
 	}
 	return result
 }
+
+// Check if object matches pattern
+func Match(rex *regexp.Regexp, streamer *bufio.Scanner) bool {
+	for streamer.Scan() {
+		if ln := streamer.Text(); rex.MatchString(ln) {
+			return true
+		}
+	}
+	return false
+}

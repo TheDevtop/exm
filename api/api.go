@@ -222,3 +222,43 @@ func apiReduceAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func apiListAll(w http.ResponseWriter, r *http.Request) {
+	// Allocate objects
+	pb := probes.NewLogProbe("api.apiListAll", os.Stderr)
+	reqForm := new(forms.SearchForm)
+	resForm := new(forms.ListForm)
+
+	// Initialize response form
+	resForm.Route = r.URL.Path
+	resForm.Count = 0
+	resForm.Objects = make([]string, 0)
+
+	if err := tpjson.ReceiveJSON(r, reqForm); err != nil {
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
+		pb.Probe(err.Error())
+		return
+	} else if re, err := rec.Receive(reqForm.Regex); err != nil {
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
+		pb.Probe(err.Error())
+		return
+	} else if list, err := sti.List(); err != nil {
+		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
+		pb.Probe(err.Error())
+		return
+	} else {
+		for _, object := range list {
+			if streamer, err := sti.Stream(object); err != nil {
+				tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
+				pb.Probe(err.Error())
+			} else {
+				if eng.Match(re, streamer) {
+					resForm.Objects = append(resForm.Objects, object)
+					resForm.Count++
+				}
+			}
+		}
+		tpjson.SendJSON(w, *resForm)
+		return
+	}
+}

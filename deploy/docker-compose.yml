@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   exm:
-    image: ghcr.io/thedevtop/exm:beta
+    image: ghcr.io/thedevtop/exm:v0.3.0
     environment:
       S3HOST: my.domain
       S3USER: username

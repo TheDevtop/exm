@@ -13,6 +13,7 @@ The API server listens on port 1800.
 - /reduce/all     (Reduce for all objects)
 - /map/reduce     (Replace pattern with mapping, return mapped only)
 - /map/reduce/all (MapReduce for all objects)
+- /list/all       (List and count all matching objects)
 
 ### JSON Forms:
 
@@ -69,5 +70,17 @@ Used by: /*/all
   "Results": {
     "": [""]
   }
+}
+```
+
+**ListForm**
+
+Used by: /list/all
+```json
+{
+  "Route": "",
+  "Error": null,
+  "Count": 0,
+  "Objects": [""]
 }
 ```

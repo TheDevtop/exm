@@ -21,6 +21,13 @@ type ResultForm struct {
 	Results []string
 }
 
+type ListForm struct {
+	Route   string
+	Error   string
+	Count   uint
+	Objects []string
+}
+
 type MultiResultForm struct {
 	Route   string
 	Error   error

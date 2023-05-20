@@ -18,4 +18,6 @@ func Setup() {
 
 	http.HandleFunc("/map/reduce", apiMapReduce)
 	http.HandleFunc("/map/reduce/all", apiMapReduceAll)
+
+	http.HandleFunc("/list/all", apiListAll)
 }

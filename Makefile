@@ -1,6 +1,5 @@
 help:
-	@echo 'EXM Makefile'
-	@echo 'Targets: build/clean/docker/help'
+	@echo 'make [build/clean/docker/help]'
 
 clean:
 	@go clean
@@ -10,4 +9,4 @@ build:
 	@go build -ldflags "-s -w"
 
 docker:clean
-	@docker build -t ghcr.io/thedevtop/exm:v0.2.0 .
+	@docker build -t ghcr.io/thedevtop/exm:v0.3.0 .
