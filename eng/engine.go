@@ -26,20 +26,16 @@ func Replace(rex *regexp.Regexp, streamer *bufio.Scanner, mapping string) []stri
 }
 
 // Search for pattern in object and map the matches exclusively
-func MapReduce(rex *regexp.Regexp, streamer *bufio.Scanner, mapping string) []string {
-	var result = make([]string, 0, 32)
-	for streamer.Scan() {
-		if ln := streamer.Text(); rex.MatchString(ln) {
-			result = append(result, rex.ReplaceAllString(ln, mapping))
-		}
-	}
-	return result
+func MapReduce(rex *regexp.Regexp, streamer *bufio.Scanner, mapping string) uint {
+	result := Replace(rex, streamer, mapping)
+	count := len(result)
+	return uint(count)
 }
 
 // Reduce object to its dictionary
 func Reduce(streamer *bufio.Scanner) []string {
-	var dict = make(map[string]bool, 32)
-	var result = make([]string, 32)
+	var dict = make(map[string]bool, 1)
+	var result = make([]string, 1)
 
 	streamer.Split(bufio.ScanWords)
 	for streamer.Scan() {

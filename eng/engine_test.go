@@ -58,9 +58,6 @@ func TestReplace(t *testing.T) {
 }
 
 func TestMapReduce(t *testing.T) {
-	// Correct results
-	good := []string{"This is John Cena of foobar"}
-
 	// Setup mock driver
 	var (
 		scanPtr *bufio.Scanner
@@ -76,8 +73,8 @@ func TestMapReduce(t *testing.T) {
 		t.Fatal(err)
 	}
 	// Test
-	if result := MapReduce(rePtr, scanPtr, "John Cena"); result[0] != good[0] {
-		t.Fatal("Test result and correct answer mismatch!")
+	if result := MapReduce(rePtr, scanPtr, "John Cena"); result < 1 {
+		t.Fatal("Test result should be higher then 0")
 	}
 }
 

@@ -142,41 +142,8 @@ func apiMapReduce(w http.ResponseWriter, r *http.Request) {
 		pb.Probe(err.Error())
 		return
 	} else {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Results: eng.MapReduce(re, streamer, reqForm.Mapping)})
+		tpjson.SendJSON(w, forms.ListForm{Route: r.URL.Path, Count: eng.MapReduce(re, streamer, reqForm.Mapping)})
 		pb.Probe(err.Error())
-		return
-	}
-}
-
-func apiMapReduceAll(w http.ResponseWriter, r *http.Request) {
-	pb := probes.NewLogProbe("api.apiMapReduceAll", os.Stderr)
-	reqForm := new(forms.ReplaceForm)
-	resForm := new(forms.MultiResultForm)
-	resForm.Route = r.URL.Path
-	resForm.Results = make(map[string][]string)
-
-	if err := tpjson.ReceiveJSON(r, reqForm); err != nil {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
-		pb.Probe(err.Error())
-		return
-	} else if re, err := rec.Receive(reqForm.Regex); err != nil {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
-		pb.Probe(err.Error())
-		return
-	} else if list, err := sti.List(); err != nil {
-		tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
-		pb.Probe(err.Error())
-		return
-	} else {
-		for _, object := range list {
-			if streamer, err := sti.Stream(object); err != nil {
-				tpjson.SendJSON(w, forms.ResultForm{Route: r.URL.Path, Error: err.Error()})
-				pb.Probe(err.Error())
-			} else {
-				resForm.Results[object] = eng.MapReduce(re, streamer, reqForm.Mapping)
-			}
-		}
-		tpjson.SendJSON(w, *resForm)
 		return
 	}
 }
