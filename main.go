@@ -20,6 +20,7 @@ func main() {
 
 	// Declare and parse flags
 	flagDriver := flag.String("driver", "none", "Specify storage driver")
+	flagCache := flag.Int("cache", 8, "Specify cache size")
 	flag.Parse()
 
 	// Initialize the storage interface
@@ -29,7 +30,7 @@ func main() {
 	}
 
 	// Initialize cache and API
-	rec.Setup(true)
+	rec.Setup(*flagCache, true)
 	api.Setup()
 
 	// Get ready to service

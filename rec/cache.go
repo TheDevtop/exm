@@ -8,29 +8,30 @@ import (
 	"github.com/TheDevtop/go-probes"
 )
 
-const (
-	cacheMaxSize = 4  // Maximum size of cache
-	cacheTimeout = 10 // Minutes to wait for timeout
-)
+const cacheTimeout = 15 // Minutes to wait for timeout
 
-var reCache map[string]*regexp.Regexp
+var (
+	reCache  map[string]*regexp.Regexp
+	cachSize int
+)
 
 // Reallocates cache
 func clean() {
 	pb := probes.NewLogProbe("rec.clean", os.Stderr)
 	for {
 		time.Sleep(cacheTimeout * time.Minute)
-		if len(reCache) > cacheMaxSize {
-			reCache = make(map[string]*regexp.Regexp, cacheMaxSize)
+		if len(reCache) > cachSize {
+			reCache = make(map[string]*regexp.Regexp, cachSize)
 			pb.Probe("Cleaned the regex cache!")
 		}
 	}
 }
 
-// Allocates cache, starts cleanup function if selected
-func Setup(autoclean bool) {
+// Allocates cache, starts autoclean if true
+func Setup(size int, autoclean bool) {
 	pb := probes.NewLogProbe("rec.Setup", os.Stderr)
-	reCache = make(map[string]*regexp.Regexp, cacheMaxSize)
+	cachSize = size
+	reCache = make(map[string]*regexp.Regexp, cachSize)
 
 	// Is autoclean enabled
 	if autoclean {

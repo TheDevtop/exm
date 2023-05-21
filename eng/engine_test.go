@@ -23,7 +23,7 @@ func TestSearch(t *testing.T) {
 	}
 	// Setup cache
 	var rePtr *regexp.Regexp
-	rec.Setup(false)
+	rec.Setup(2, false)
 	if rePtr, err = rec.Receive("content"); err != nil {
 		t.Fatal(err)
 	}
@@ -47,7 +47,7 @@ func TestReplace(t *testing.T) {
 	}
 	// Setup cache
 	var rePtr *regexp.Regexp
-	rec.Setup(false)
+	rec.Setup(2, false)
 	if rePtr, err = rec.Receive("the content"); err != nil {
 		t.Fatal(err)
 	}
@@ -71,7 +71,7 @@ func TestMapReduce(t *testing.T) {
 	}
 	// Setup cache
 	var rePtr *regexp.Regexp
-	rec.Setup(false)
+	rec.Setup(2, false)
 	if rePtr, err = rec.Receive("the content"); err != nil {
 		t.Fatal(err)
 	}
@@ -111,7 +111,7 @@ func TestMatch(t *testing.T) {
 	}
 	// Setup cache
 	var rePtr *regexp.Regexp
-	rec.Setup(false)
+	rec.Setup(2, false)
 	if rePtr, err = rec.Receive("foo*"); err != nil {
 		t.Fatal(err)
 	}

@@ -17,3 +17,13 @@ EXM stands for **Ex Mathematica**, which is a reference to the movie Ex Machina.
 1. Copy the [Docker Compose](https://github.com/TheDevtop/exm/blob/main/deploy/docker-compose.yml) file.
 2. Modify the environment variables to math your environment.
 3. Execute: `docker compose up`, to launch your EXM instance.
+
+### Usage:
+```
+$ ./exm --help
+Usage of ./exm:
+  -cache int
+        Specify cache size (default 8)
+  -driver string
+        Specify storage driver (default "none")
+```
