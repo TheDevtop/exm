@@ -3,9 +3,9 @@ module github.com/TheDevtop/exm
 go 1.19
 
 require (
-	github.com/TheDevtop/go-probes v1.0.0
+	github.com/TheDevtop/go-probes v1.1.0
 	github.com/TheDevtop/tpjson v1.0.0
-	github.com/minio/minio-go/v7 v7.0.52
+	github.com/minio/minio-go/v7 v7.0.53
 )
 
 require (
