@@ -1,0 +1,12 @@
+[Unit]
+Description=EXM API
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/exmapi /etc/exm.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
