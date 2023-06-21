@@ -1,0 +1,13 @@
+{
+  "Directory": "/foo/bar",
+  "CacheSize" : 16,
+  "ServerAddress": ":1800",
+  "Sources": [
+    {
+      "Type": "http/tcp/unix/local",
+      "Address": "",
+      "Timeout": 0,
+      "Object": ""
+    }
+  ]
+}

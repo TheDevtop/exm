@@ -1,0 +1,12 @@
+[Unit]
+Description=EXM Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/exmsrv /etc/exm.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

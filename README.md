@@ -1,29 +1,29 @@
-# EXM Search Engine
+# EXM
 
-EXM is the cloud-native search engine from the future.
-It isn't out of development, but can be considererd production-ready.
+The austere search engine; in other terms: Grep with a Web API.
 
-EXM stands for **Ex Mathematica**, which is a reference to the movie Ex Machina.
+### EXM Server
 
-### Build:
+Fetch data from known (networked) sources.
 
-1. Clone/checkout this repository.
-2. Configure the Dockerfile environment variables.
-3. Execute: `make docker`.
-4. Execute: `docker image list` to verify the build image.
+### EXM API
 
-### Deploy:
+Exposes an API to search trough the data.
 
-1. Copy the [Docker Compose](https://github.com/TheDevtop/exm/blob/main/deploy/docker-compose.yml) file.
-2. Modify the environment variables to math your environment.
-3. Execute: `docker compose up`, to launch your EXM instance.
+### Configuration
 
-### Usage:
-```
-$ ./exm --help
-Usage of ./exm:
-  -cache int
-        Specify cache size (default 8)
-  -driver string
-        Specify storage driver (default "none")
+```json
+{
+  "Directory": "/foo/bar",
+  "ServerAddress": ":1800",
+  "CacheSize" : 16,
+  "Sources": [
+    {
+      "Type": "http/tcp/udp/local",
+      "Address": "",
+      "Timeout": 0,
+      "Object": "lorem.html"
+    }
+  ]
+}
 ```
