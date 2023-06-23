@@ -18,9 +18,10 @@ const (
 	urlPing          = "/ping"          // Ping pong
 )
 
-func setCors(w http.ResponseWriter) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, GET")
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET")
+	(*w).Header().Set("Access-Control-Allow-Headers", "*")
 }
 
 func apiSearch_object(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +31,7 @@ func apiSearch_object(w http.ResponseWriter, r *http.Request) {
 		err     error
 	)
 
-	setCors(w)
+	enableCors(&w)
 
 	if err = tpjson.ReceiveJSON(r, reqForm); err != nil {
 		tpjson.SendJSON(w, lib.FormResult{Error: err.Error()})
@@ -50,7 +51,7 @@ func apiSearch_global(w http.ResponseWriter, r *http.Request) {
 		err     error
 	)
 
-	setCors(w)
+	enableCors(&w)
 
 	if err = tpjson.ReceiveJSON(r, reqForm); err != nil {
 		tpjson.SendJSON(w, lib.FormResult{Error: err.Error()})
@@ -71,7 +72,7 @@ func apiIndex_object(w http.ResponseWriter, r *http.Request) {
 		err     error
 	)
 
-	setCors(w)
+	enableCors(&w)
 
 	if err = tpjson.ReceiveJSON(r, reqForm); err != nil {
 		tpjson.SendJSON(w, lib.FormResult{Error: err.Error()})
@@ -97,7 +98,7 @@ func apiMeta_object(w http.ResponseWriter, r *http.Request) {
 		err     error
 	)
 
-	setCors(w)
+	enableCors(&w)
 
 	if err = tpjson.ReceiveJSON(r, reqForm); err != nil {
 		tpjson.SendJSON(w, lib.FormResult{Error: err.Error()})
