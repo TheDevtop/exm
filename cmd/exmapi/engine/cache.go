@@ -2,43 +2,29 @@ package engine
 
 import (
 	"regexp"
-	"time"
 
 	"github.com/TheDevtop/exm/lib"
+	"github.com/zyedidia/generic/cache"
 )
 
 var (
-	reCache map[string]*regexp.Regexp
+	reCache *cache.Cache[string, *regexp.Regexp]
 	config  lib.Config
 )
 
-func alloc() {
-	reCache = make(map[string]*regexp.Regexp, config.CacheSize)
-}
-
-func clean() {
-	for {
-		if len(reCache) > config.CacheSize {
-			alloc()
-		}
-		time.Sleep(time.Hour)
-	}
-}
-
 func getRegex(restr string) (*regexp.Regexp, error) {
-	if re, ok := reCache[restr]; ok {
+	if re, ok := reCache.Get(restr); ok {
 		return re, nil
 	}
 	if re, err := regexp.Compile(restr); err != nil {
 		return nil, err
 	} else {
-		reCache[restr] = re
+		reCache.Put(restr, re)
 		return re, nil
 	}
 }
 
 func Start(cfg lib.Config) {
 	config = cfg
-	alloc()
-	go clean()
+	reCache = cache.New[string, *regexp.Regexp](cfg.CacheSize)
 }
