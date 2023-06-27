@@ -11,6 +11,12 @@ import (
 	"github.com/TheDevtop/exm/lib"
 )
 
+/*
+Program entrypoint, load the configuration, start the engine;
+mount endpoints, start the server.
+Finally, listen to stop signals.
+*/
+
 func main() {
 	var (
 		err    error

@@ -18,12 +18,14 @@ const (
 	urlPing          = "/ping"          // Ping pong
 )
 
+// Transparantly enable CORS allow all.
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET")
 	(*w).Header().Set("Access-Control-Allow-Headers", "*")
 }
 
+// Search within object.
 func apiSearch_object(w http.ResponseWriter, r *http.Request) {
 	var (
 		reqForm = new(lib.FormRequest)
@@ -44,6 +46,7 @@ func apiSearch_object(w http.ResponseWriter, r *http.Request) {
 	tpjson.SendJSON(w, lib.FormResult{Count: len(results), Results: results})
 }
 
+// Search within the entire directory.
 func apiSearch_global(w http.ResponseWriter, r *http.Request) {
 	var (
 		reqForm = new(lib.FormRequest)
@@ -65,6 +68,7 @@ func apiSearch_global(w http.ResponseWriter, r *http.Request) {
 	tpjson.SendJSON(w, lib.FormResult{Count: len(results), Results: results})
 }
 
+// Return dictionary of object.
 func apiIndex_object(w http.ResponseWriter, r *http.Request) {
 	var (
 		reqForm = new(lib.FormRequest)
@@ -86,11 +90,13 @@ func apiIndex_object(w http.ResponseWriter, r *http.Request) {
 	tpjson.SendJSON(w, lib.FormResult{Count: len(results), Results: results})
 }
 
+// Return file list.
 func apiIndex_global(w http.ResponseWriter, r *http.Request) {
 	var results = engine.IndexGlobal()
 	tpjson.SendJSON(w, lib.FormResult{Count: len(results), Results: results})
 }
 
+// Return object metdata.
 func apiMeta_object(w http.ResponseWriter, r *http.Request) {
 	var (
 		reqForm = new(lib.FormRequest)
@@ -112,4 +118,5 @@ func apiMeta_object(w http.ResponseWriter, r *http.Request) {
 	tpjson.SendJSON(w, results)
 }
 
+// Ping pong
 func apiPing(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, "pong") }

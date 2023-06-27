@@ -9,6 +9,7 @@ import (
 	"github.com/TheDevtop/exm/lib"
 )
 
+// Search within object.
 func SearchObject(restr, object string) ([]string, error) {
 	var (
 		stream  *bufio.Scanner
@@ -31,6 +32,7 @@ func SearchObject(restr, object string) ([]string, error) {
 	return results, nil
 }
 
+// Search within the entire directory.
 func SearchGlobal(restr string) ([]string, error) {
 	var (
 		stream  *bufio.Scanner
@@ -59,6 +61,7 @@ func SearchGlobal(restr string) ([]string, error) {
 	return results, nil
 }
 
+// Return dictionary of object.
 func IndexObject(object string) ([]string, error) {
 	var (
 		stream  *bufio.Scanner
@@ -80,6 +83,7 @@ func IndexObject(object string) ([]string, error) {
 	return results, nil
 }
 
+// Return file list.
 func IndexGlobal() []string {
 	var results = make([]string, 0, 32)
 	for _, entry := range config.Sources {
@@ -88,6 +92,7 @@ func IndexGlobal() []string {
 	return results
 }
 
+// Return object metdata.
 func MetaObject(object string) lib.FormMetadata {
 	var (
 		fi  fs.FileInfo
