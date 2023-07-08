@@ -11,8 +11,8 @@ import (
 func WriteTable(path string, table data.Table) error {
 	if buf, err := toml.Marshal(table); err != nil {
 		return err
-	} else {
-		os.WriteFile(path, buf, data.DefaultPerm)
+	} else if err := os.WriteFile(path, buf, data.DefaultPerm); err != nil {
+		return err
 	}
 	return nil
 }
