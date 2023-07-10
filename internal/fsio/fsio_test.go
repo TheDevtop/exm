@@ -3,7 +3,7 @@ package fsio
 import (
 	"testing"
 
-	"github.com/TheDevtop/exm/pkg/data"
+	"github.com/TheDevtop/exm/shared"
 )
 
 func TestWriteTable(t *testing.T) {
@@ -12,7 +12,7 @@ func TestWriteTable(t *testing.T) {
 		aa = []string{"Trivago!", "Hilton!"}
 		ab = "Hotel?"
 		ac = "test.db"
-		ad = make(data.Table)
+		ad = make(shared.Table)
 	)
 
 	// Construct table
