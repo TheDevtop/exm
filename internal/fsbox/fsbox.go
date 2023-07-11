@@ -1,4 +1,4 @@
-package fsio
+package fsbox
 
 import (
 	"fmt"
@@ -9,11 +9,11 @@ import (
 )
 
 const defaultPerm = 0644
-const defaultExt = "%s.db"
+const pathFormat = "./%s.dt"
 
 // Delete table
 func DeleteTable(name string) error {
-	path := fmt.Sprintf(defaultExt, name)
+	path := fmt.Sprintf(pathFormat, name)
 	if err := os.Remove(path); err != nil {
 		return err
 	}
@@ -22,7 +22,7 @@ func DeleteTable(name string) error {
 
 // Write table to filesystem
 func WriteTable(name string, table shared.Table) error {
-	path := fmt.Sprintf(defaultExt, name)
+	path := fmt.Sprintf(pathFormat, name)
 	if buf, err := toml.Marshal(table); err != nil {
 		return err
 	} else if err := os.WriteFile(path, buf, defaultPerm); err != nil {
@@ -33,7 +33,7 @@ func WriteTable(name string, table shared.Table) error {
 
 // Read table from filesystem
 func ReadTable(name string) (shared.Table, error) {
-	path := fmt.Sprintf(defaultExt, name)
+	path := fmt.Sprintf(pathFormat, name)
 	var tab shared.Table
 	if buf, err := os.ReadFile(path); err != nil {
 		return nil, err

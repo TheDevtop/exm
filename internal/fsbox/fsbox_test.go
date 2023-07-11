@@ -1,4 +1,4 @@
-package fsio
+package fsbox
 
 import (
 	"testing"

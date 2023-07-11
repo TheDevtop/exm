@@ -7,7 +7,6 @@ type Table map[string][]string
 
 // Request form
 type RequestForm struct {
-	Action string
 	Table  string
 	Entry  string
 	Values []string
